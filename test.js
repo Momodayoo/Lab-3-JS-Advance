@@ -21,3 +21,5 @@ let sayHi = function sayHiFunc(who) { // NFE, internal name can be used below
         sayHi() // Hi - calls the function and increments the counter again
         console.log( `Called ${sayHi.name} ${sayHi.counter} times` ) // Called sayHi 2 times
     }
+
+    
