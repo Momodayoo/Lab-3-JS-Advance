@@ -9,27 +9,32 @@
 //a) Write a new version of this function using async/await
 
 
-import fetch from 'node-fetch'
-    globalThis.fetch = fetch
-
-    async function fetchURLData(url) {
-        try {
-            const response = await fetch (url);
-        if (response.status === 200) {
-            const data = await response.json();
-            return data;
-            } else {
-            throw new Error(`Request failed with status ${response.status}`);
-        }
-    }catch (error){
-        throw error;
-    }
+/*import fetch from 'node-fetch'
+globalThis.fetch = fetch
+function fetchURLData(url) {
+let fetchPromise = fetch(url).then(response => {
+if (response.status === 200) {
+return response.json();
+} else {
+throw new Error(`Request failed with status ${response.status}`);
+}
+});
 return fetchPromise;
 }
-
 fetchURLData('https://jsonplaceholder.typicode.com/todos/1')
-  .then(data => console.log(data))
-  .catch(error => console.error(error.message));
+.then(data => console.log(data))
+.catch(error => console.error(error.message));*/
+
+    async function asyncfetchURLData(url) {
+      let fetchResponse = await fetch (url);
+      if (fetchResponseJson.status === 200) {
+        let responseJson = await fetchResponse.json();  
+        return responseJson;
+        } else {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+    
 
   //b) Test both functions with valid and invalid URLs
 
@@ -48,34 +53,25 @@ fetchURLData('https://jsonplaceholder.typicode.com/todos/1')
 //run 'npm install node-fetch'
 //add this line to package.json after line 5: "type": "module",
 
-import fetch from 'node-fetch';
 
-globalThis.fetch = fetch;
-
-async function fetchMultipleURLs(urls) {
-  try {
-    const fetchPromises = urls.map(async url => {
-      const response = await fetch(url);
-      if (response.status === 200) {
-        return response.json();
-      } else {
-        throw new Error(`Request for ${url} failed with status ${response.status}`);
-      }
-    });
-
-    const results = await Promise.all(fetchPromises);
-    return results;
-  } catch (error) {
-    throw error;
-  }
 }
-
-const urls = [
-  'https://jsonplaceholder.typicode.com/todos/1',
-  'https://jsonplaceholder.typicode.com/posts/1',
-  'https://jsonplaceholder.typicode.com/nonexistent',
-];
-
-fetchMultipleURLs(urls)
-  .then(data => console.log(data))
-  .catch(error => console.error(error.message));
+async function asyncFetchMultipleURLData(urls) { //c)
+return Promise.all(urls.map(async (url) => {
+let response = await fetch(url);
+return response.json();
+}));
+}
+try {
+let responseData1 = await
+asyncFetchURLData('https://jsonplaceholder.typicode.com/todos/1');
+console.log(responseData1) //works
+let responseData2 = await
+asyncFetchMultipleURLData(['https://jsonplaceholder.typicode.com/todos/1',
+'https://jsonplaceholder.typicode.com/todos/2']);
+console.log(responseData2) //works
+let responseData3 = await
+asyncFetchURLData('https://jsonplaceholder.typicode.com/fake');
+console.log(responseData3) //fails
+} catch (error) {
+console.log(error.message);
+}
