@@ -9,21 +9,32 @@
 //a) Write a new version of this function using async/await
 
 
-/*import fetch from 'node-fetch'
+import fetch from 'node-fetch'
 globalThis.fetch = fetch
+
 function fetchURLData(url) {
-let fetchPromise = fetch(url).then(response => {
-if (response.status === 200) {
-return response.json();
-} else {
-throw new Error(`Request failed with status ${response.status}`);
+  let fetchPromise = fetch(url).then(response => {
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+  });
+
+  return fetchPromise;
 }
-});
-return fetchPromise;
-}
-fetchURLData('https://jsonplaceholder.typicode.com/todos/1')
-.then(data => console.log(data))
-.catch(error => console.error(error.message));*/
+
+  //b) Test both functions with valid and invalid URLs
+
+  fetchURLData('https://jsonplaceholder.typicode.com/todos/1')
+  .then(data => console.log(data))
+  .catch(error => console.error(error.message));
+
+  fetchURLData('https://jsonplaceholder.typicode.com/nonexistent')
+  .then(data => console.log(data))
+  .catch(error => console.error(error.message));
+
+//a
 
     async function asyncfetchURLData(url) {
       let fetchResponse = await fetch (url);
@@ -36,15 +47,6 @@ fetchURLData('https://jsonplaceholder.typicode.com/todos/1')
 
     
 
-  //b) Test both functions with valid and invalid URLs
-
-  fetchURLData('https://jsonplaceholder.typicode.com/todos/1')
-  .then(data => console.log(data))
-  .catch(error => console.error(error.message));
-
-  fetchURLData('https://jsonplaceholder.typicode.com/nonexistent')
-  .then(data => console.log(data))
-  .catch(error => console.error(error.message));
 
 
 //c) (Extension) Extend your new function to accept an array of URLs and fetch all of them,
@@ -56,22 +58,26 @@ fetchURLData('https://jsonplaceholder.typicode.com/todos/1')
 
 }
 async function asyncFetchMultipleURLData(urls) { //c)
-return Promise.all(urls.map(async (url) => {
-let response = await fetch(url);
-return response.json();
-}));
-}
-try {
-let responseData1 = await
+
+    return Promise.all(urls.map(async (url) => {
+      let response = await fetch (url);
+      return response.json();
+    }));
+
+  try {
+    let responseData1 = await
 asyncFetchURLData('https://jsonplaceholder.typicode.com/todos/1');
 console.log(responseData1) //works
-let responseData2 = await
+
+  let responseData2 = await
 asyncFetchMultipleURLData(['https://jsonplaceholder.typicode.com/todos/1',
 'https://jsonplaceholder.typicode.com/todos/2']);
-console.log(responseData2) //works
-let responseData3 = await
+  console.log(responseData2) //works
+
+  let responseData3 = await
 asyncFetchURLData('https://jsonplaceholder.typicode.com/fake');
-console.log(responseData3) //fails
+  console.log(responseData3) //fails
 } catch (error) {
-console.log(error.message);
+  console.log(error.message);
+}
 }
