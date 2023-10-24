@@ -20,39 +20,37 @@ function makeCounter() {
 }
 
 let counter1 = makeCounter();
+let counter2 = makeCounter();
 
 counter1(); // 1
 counter1(); // 2
 
+counter2(); // 1
+counter2(); // 2
+
 {
-    function makeCounter() {
-        let startFrom = 2;
-    
+    function makeCounterB(startFrom) {
+        let currentCount = startFrom;
         return function() {
-            startFrom++;
-            console.log(startFrom)
-            return startFrom;
+        currentCount++;
+        console.log(currentCount)
+        return currentCount;
         };
-    }
-    
-    let counter2 = makeCounter();
-    
-    counter2(); // 1
-    counter2(); // 2
-}
-{
-    function makeCounter() {
-        let incrementBy = 4;
-    
+        }
+        let counter3 = makeCounterB(5);
+        counter3(); // 6
+        counter3(); // 7
+        counter3(); // 8
+
+    function makeCounterC(startFrom, incrementBy) {
+        let currentCount = startFrom;
         return function() {
-            incrementBy++;
-            console.log(incrementBy)
-            return incrementBy;
+        currentCount += incrementBy;
+        console.log(currentCount)
+        return currentCount;
         };
+        }
+        let counter4 = makeCounterC(10, 5);
+        counter4(); // 15
+        counter4(); // 20
     }
-    
-    let counter3 = makeCounter();
-    
-    counter3(); // 1
-    counter3(); // 2
-}

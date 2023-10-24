@@ -20,21 +20,43 @@ function printMe() {
     console.log('printing debounced message')
 }
 
-printMe('debounce(printMe)') //create this debounce function for a)
-function loggingTimingDecorator (originalFunction) {
-return function () {
-    console.time('Function timer');
-    console.log('\nExecuting function...')
-    const result = originalFunction();
-    console.timeEnd('Function timer');
-    return result;
-}
-}
-const decoratedPrintMe = loggingTimingDecorator(printMe);
-decoratedPrintMe('Decorated')
+function debounce (func) {//create  debounce function for a)
+let timeout; 
 
+return function () { 
+    clearTimeout (timeout);
+    
+    timeout = setTimeout (func,1000) 
+};
+}
 
+function debounceB (func, ms){ //answer for b
+    let timeout;
+
+    return function() {
+        clearTimeout (timeout);
+
+        timeout = setTimeout (func, ms)
+     };
+}
+
+function printMeC(msg) {
+    console.log (`printing debounced messafe c: ${msg}`)
+}
+function printMeC(msg) {
+    console.log(`printing debounced message c: ${msg}`)
+    }
+    printMeC = debounceC(printMeC, 1200)
 //fire off 3 calls to printMe within 300ms - only the LAST one should print, after 1000ms of no calls
     setTimeout( printMe, 100);
     setTimeout( printMe, 200);
     setTimeout( printMe, 300);
+    function debounceC(func, ms) { //answer for c)
+        let timeout;
+        return function(msg) {
+        //clear the timer to cancel the previously queued function call
+        clearTimeout(timeout);
+        //reset the timer for this most recent call to happen after the ms delay
+        timeout = setTimeout(func, ms, msg);
+        };
+        }

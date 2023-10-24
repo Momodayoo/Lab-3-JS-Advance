@@ -21,10 +21,11 @@ setTimeout(()=> car.description(), 200);
 // b) Change the year for the car by creating a clone of the original and overriding it
 
 car = {...car, year:2023}
+car = {...car, make: "Ferrari", model: 'La Ferrari'};
 
 //c) Does the delayed description() call use the original values or the new values from b)? Why?
 
-//still uses original values as 'this' method refers to the 'car' object. the value doesnt change even when it is cloned
+//object has changed since timeout was created
 
 //d) Use bind to fix the description method so that it can be called from within setTimeout without a wrapper function
 

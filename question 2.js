@@ -15,9 +15,9 @@ function delayMsg(msg)
 setTimeout(delayMsg, 100, '#1: Delayed by 100ms');
 setTimeout(delayMsg, 20, '#2: Delayed by 20ms');
 setTimeout(delayMsg, 0, '#3: Delayed by 0ms');
-delayMsg( () => console.log("This message will be printed after a delay: ${no delay}"),);
-clearTimeout( () => console.log("This message will be printed after a delay: ${10000ms}"),10000);
+delayMsg( () => console.log("This message will be printed after a delay: {no delay}"),);
 
-//rewrite delayMsg as arrow function. added fifth function //
+let fifthTimerRef = setTimeout (delayMsg, 10*1000, '5th longest delay')
+clearTimeout( fifthTimerRef)
 
 
