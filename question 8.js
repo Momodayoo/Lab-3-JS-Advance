@@ -43,8 +43,8 @@ class PrecisionClock extends DigitalClock {
     }
   }
   
-  const myPrecisionClock = new PrecisionClock('my precision clock:', 500);
-  myPrecisionClock.start(); // This clock will tick every 500 milliseconds
+  const myPrecisionClock = new PrecisionClock('my precision clock:', 2000);
+  myPrecisionClock.start(); // This clock will tick every 2000 milliseconds
   
 
   //b) Create a new class AlarmClock that inherits from DigitalClock and adds the parameter wakeupTime in the format hh:mm. When the clock reaches this time, it should print a 'Wake Up' message and stop ticking. This wakeupTime parameter should default to 07:00 if not supplied.
@@ -72,4 +72,5 @@ class PrecisionClock extends DigitalClock {
   
   const myAlarmClock = new AlarmClock('my alarm clock:', '08:30');
   myAlarmClock.start();
+  
   

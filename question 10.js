@@ -9,7 +9,8 @@
 //a) Write a new version of this function using async/await
 
 
-import fetch from 'node-fetch'
+import fetch from "node-fetch";
+
 globalThis.fetch = fetch
 
 function fetchURLData(url) {
